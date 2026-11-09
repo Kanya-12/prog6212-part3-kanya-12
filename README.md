@@ -335,3 +335,20 @@ dotnet test RaceDay.sln
 
 All 54 tests pass locally and in GitHub Actions.
 
+## CI/CD
+
+.github/workflows/part2-ci.yml runs on every push and pull request. It checks out the repository, installs .NET 8, restores packages, builds RaceDay.sln in Release mode, and runs all unit tests. The tests use an in-memory database, so the workflow does not need SQL Server.
+
+.github/workflows/part1-ci.yml also still runs and checks the Part 1 documents.
+
+Successful build screenshot For Par2 CI:
+
+<img width="818" height="45" alt="image" src="https://github.com/user-attachments/assets/b3eb33e5-9a2c-4992-9537-8c4f4730f8a6" />
+
+
+## Video Presentation
+
+Part 2 YouTube link (unlisted):
+https://youtu.be/AqaLe4g8zug
+
+
