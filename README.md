@@ -262,3 +262,33 @@ Then browse to https://localhost:7236/swagger.
 - Sessions are held in server memory, so restarting the API logs everyone out.
 
 *API Endpoint Reference*
+| Method | Route | Role | Purpose |
+|---|---|---|---|
+| POST | `/api/auth/register` | None | Create an Organiser or Participant account |
+| POST | `/api/auth/login` | None | Verify credentials and start a session |
+| POST | `/api/auth/logout` | Any | Clear the session |
+| GET | `/api/users/me` | Any | View own profile |
+| PUT | `/api/users/me` | Any | Update own profile |
+| GET | `/api/events` | None | List all events |
+| GET | `/api/events/{id}` | None | View one event |
+| GET | `/api/events/mine` | Organiser | List the organiser's own events |
+| POST | `/api/events` | Organiser | Create an event |
+| PUT | `/api/events/{id}` | Organiser (owner) | Update an event |
+| DELETE | `/api/events/{id}` | Organiser (owner) | Delete an event |
+| GET | `/api/events/{eventId}/routes` | None | List an event's routes |
+| POST | `/api/events/{eventId}/routes` | Organiser (owner) | Add a route to an event |
+| GET | `/api/events/{eventId}/categories` | None | List an event's categories |
+| POST | `/api/events/{eventId}/categories` | Organiser (owner) | Add a category to an event |
+| PUT | `/api/categories/{id}` | Organiser (owner) | Update a category |
+| DELETE | `/api/categories/{id}` | Organiser (owner) | Delete a category |
+| POST | `/api/events/{eventId}/enrolments` | Participant | Enrol in an event under a category |
+| GET | `/api/users/me/enrolments` | Participant | View own enrolments |
+| GET | `/api/events/{eventId}/enrolments` | Organiser (owner) | View all enrolments for an event |
+| PUT | `/api/enrolments/{id}/status` | Organiser (owner) | Set an enrolment to Pending, Confirmed, or Cancelled |
+| DELETE | `/api/enrolments/{id}` | Participant (owner) | Cancel own enrolment |
+| POST | `/api/enrolments/{enrolmentId}/result` | Organiser (owner) | Capture a finish time and position |
+| PUT | `/api/results/{id}` | Organiser (owner) | Correct a captured result |
+| GET | `/api/events/{eventId}/results` | None | View an event's results |
+| GET | `/api/users/me/results` | Participant | View own results |
+
+That is 26 endpoints: the 24 in the Part 1 plan plus the two added in Part 2.
