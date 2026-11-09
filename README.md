@@ -308,3 +308,14 @@ That is 26 endpoints: the 24 in the Part 1 plan plus the two added in Part 2.
 | Role is a C# enum stored as text in Users.Role | Provides type safety while matching the SQL script. |
 
 No entities, attributes, keys, or relationships differ between the ERD, the SQL script, and the EF Core model
+
+
+## Swagger
+
+Swagger UI is available at /swagger while the API runs in the Development environment. Every endpoint is listed and can be tested directly in the browser, grouped by controller (Auth, Profile, Events, Categories, Routes, Enrolments, Results). Endpoint descriptions come from the XML comments on each controller action.
+
+## Unit Testing
+
+The RaceDay.Api.Tests project contains 54 xUnit tests. Each test class starts the real API in memory using WebApplicationFactory and swaps SQL Server for a temporary in-memory database so the tests never touch the real database.
+
+## Automated Tests
