@@ -244,3 +244,10 @@ The docs/RaceDay_Database.sql script from Part 1 creates a separate database cal
 2. Right-click RaceDay.Api → Set as Startup Project.
 3. Choose the https profile and press F5.
 4. Swagger opens at https://localhost:7236/swagger.
+
+
+```bash
+dotnet run --project RaceDay.Api --launch-profile https
+```
+
+Then browse to https://localhost:7236/swagger.
