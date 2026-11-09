@@ -146,4 +146,18 @@ RaceDay/
 └── README.md
 ```
 
+Main projects:
+
+RaceDay.Api: ASP.NET Core RESTful Web API.
+
+RaceDay.Mvc: ASP.NET Core MVC web application.
+
+RaceDay.Contracts: Shared request and response DTOs.
+
+RaceDay.Api.Tests: Automated API unit tests.
+
+docs: Part 1 planning and database documents.
+
+.github/workflows: GitHub Actions CI/CD workflows.
+
 
