@@ -251,3 +251,14 @@ dotnet run --project RaceDay.Api --launch-profile https
 ```
 
 Then browse to https://localhost:7236/swagger.
+
+*Authentication*
+
+- Register (POST /api/auth/register) validates the request, checks the role is Organiser or Participant, rejects duplicate email addresses with 409, hashes the password, and saves the user.
+- Login (POST /api/auth/login) verifies the password against the stored hash and starts a server-side session.
+- Logout (POST /api/auth/logout) clears the session.
+- Role enforcement is done by RequireRoleAttribute and returns 401 or 403 as needed.
+- Ownership checks ensure organisers and participants only access the records they own.
+- Sessions are held in server memory, so restarting the API logs everyone out.
+
+*API Endpoint Reference*
