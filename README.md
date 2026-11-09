@@ -292,3 +292,19 @@ Then browse to https://localhost:7236/swagger.
 | GET | `/api/users/me/results` | Participant | View own results |
 
 That is 26 endpoints: the 24 in the Part 1 plan plus the two added in Part 2.
+
+
+*Part 2 Changes and Improvements*
+
+| Change | Reason |
+|---|---|
+| Login creates a session instead of returning a JWT | Part 2 requires session-based authentication. |
+| Added POST /api/auth/logout | Required to clear a session. |
+| Added DistanceKM to Event | Every event must capture distance. |
+| Added GET /api/events/mine | Allows organisers to see only their own events. |
+| Added PUT /api/enrolments/{id}/status | Allows organisers to confirm or cancel an entrant. |
+| AppUser and Users table instead of User | USER is a reserved word in T-SQL. |
+| RaceRoute class (table still called Routes) | Avoids a naming clash with ASP.NET Core routing. |
+| Role is a C# enum stored as text in Users.Role | Provides type safety while matching the SQL script. |
+
+No entities, attributes, keys, or relationships differ between the ERD, the SQL script, and the EF Core model
