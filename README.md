@@ -161,8 +161,30 @@ docs: Part 1 planning and database documents.
 .github/workflows: GitHub Actions CI/CD workflows.
 
 
-Part 1 - Planning and Database
+## Part 1 - Planning and Database
 
 Part 1 focused on planning and designing the RaceDay system before implementation.
 
 The planning documents are available in the /docs folder.
+
+| Deliverable | File |
+|---|---|
+| Entity Relationship Diagram | [RaceDay_ERD.pdf](https://github.com/RCNMBCampus/prog6212-part-1-Kanya-12/blob/ce7c92df92390fc9564417d4c0ef1fcf9eb84456/docs/RaceDay_ERD.pdf) |
+| API Endpoint Plan | [RaceDay_API_Endpoint_Plan.pdf](https://github.com/RCNMBCampus/prog6212-part-1-Kanya-12/blob/ce7c92df92390fc9564417d4c0ef1fcf9eb84456/docs/RaceDay_API_Endpoint_Plan.pdf) |
+| SQL Database Script | [RaceDay_Database.sql](https://github.com/RCNMBCampus/prog6212-part-1-Kanya-12/blob/ce7c92df92390fc9564417d4c0ef1fcf9eb84456/docs/RaceDay_Database.sql) |
+
+The database has six entities: User, Event, Category, Route, Enrolment, and Result. Enrolment is the associative entity resolving the many-to-many relationship between Participants and Events via a chosen Category. Result has a 1:0..1 relationship with Enrolment because a result only exists once the organiser captures it.
+
+The Part 1 workflow (.github/workflows/part1-ci.yml) checks that the /docs folder and required files exist.
+
+## Part 1 CI screenshot:
+
+<img width="813" height="54" alt="image" src="https://github.com/user-attachments/assets/06b55ae6-450c-409b-bdab-0b66e0aae5cb" />
+
+## Successful build screenshot:
+
+<img width="898" height="54" alt="image" src="https://github.com/user-attachments/assets/dcaeff56-6205-4a48-85fe-27f0fff2af01" />
+
+## Part 1 video (unlisted):
+- https://youtu.be/DlgdIhYUSgA
+
