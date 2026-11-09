@@ -23,3 +23,25 @@ The project is developed in three parts for PROG6212 (Programming 2B).
 | Part 2 | RESTful API using ASP.NET Core, Entity Framework Core, authentication, testing and CI/CD | Complete           |
 | Part 3 | MVC web application, Azure Blob Storage and Docker                                       | Current submission |
 
+User Roles
+
+Organiser
+
+An Organiser can:
+
+Register and log in as an Organiser.
+
+Create, view, edit and delete their own events.
+
+Manage event categories and routes.
+
+View enrolments for their events.
+
+Update enrolment statuses.
+
+Capture and correct participants' finishing times and positions.
+
+View and update their own profile.
+
+Organisers cannot manage events belonging to other Organisers or enrol as Participants.
+
