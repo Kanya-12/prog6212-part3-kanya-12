@@ -319,3 +319,19 @@ Swagger UI is available at /swagger while the API runs in the Development enviro
 The RaceDay.Api.Tests project contains 54 xUnit tests. Each test class starts the real API in memory using WebApplicationFactory and swaps SQL Server for a temporary in-memory database so the tests never touch the real database.
 
 ## Automated Tests
+| Test class | What it covers |
+|---|---|
+| `AuthTests` | Registration, login, logout, and profile tests. |
+| `EventTests` | Public viewing and organiser validation tests. |
+| `RoleAccessTests` | Protected endpoint access checks. |
+| `EnrolmentTests` | Enrolment creation, ownership, and validation tests. |
+| `ResultTests` | Capturing and viewing participant results. |
+
+Run the tests in Visual Studio or with:
+
+```bash
+dotnet test RaceDay.sln
+```
+
+All 54 tests pass locally and in GitHub Actions.
+
