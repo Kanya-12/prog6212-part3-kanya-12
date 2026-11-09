@@ -70,3 +70,28 @@ Participants cannot create or manage events, categories, routes or results.
 ## Solution Structure
 
 The solution contains the following main projects and folders:
+
+RaceDay/
+├── RaceDay.sln
+├── docs/
+│   ├── RaceDay_ERD.png
+│   ├── RaceDay_ERD.pdf
+│   ├── RaceDay_API_Endpoint_Plan.md
+│   ├── RaceDay_API_Endpoint_Plan.docx
+│   └── RaceDay_Database.sql
+├── RaceDay.Api/
+│   ├── Controllers/
+│   ├── Data/
+│   ├── Filters/
+│   ├── Migrations/
+│   ├── Models/
+│   ├── Properties/
+│   ├── appsettings.json
+│   └── Program.cs
+├── RaceDay.Contracts/
+│   └── Dtos.cs
+├── RaceDay.Api.Tests/
+├── RaceDay.Mvc/
+├── .github/
+│   └── workflows/
+└── README.md
