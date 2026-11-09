@@ -188,3 +188,16 @@ The Part 1 workflow (.github/workflows/part1-ci.yml) checks that the /docs folde
 ## Part 1 video (unlisted):
 - https://youtu.be/DlgdIhYUSgA
 
+## Part 2
+
+*Technologies Used:*
+- ASP.NET Core 8 Web API (C#), built with Visual Studio 2022
+- Entity Framework Core 8, Code-First, with SQL Server
+- Server-side sessions for authentication (AddSession)
+- ASP.NET Core PasswordHasher for password hashing
+- Swashbuckle (Swagger UI) with XML documentation comments
+- xUnit, Microsoft.AspNetCore.Mvc.Testing and the EF Core in-memory provider for tests
+- GitHub Actions for CI/CD
+
+## Project Structure
+
