@@ -161,3 +161,8 @@ docs: Part 1 planning and database documents.
 .github/workflows: GitHub Actions CI/CD workflows.
 
 
+Part 1 - Planning and Database
+
+Part 1 focused on planning and designing the RaceDay system before implementation.
+
+The planning documents are available in the /docs folder.
