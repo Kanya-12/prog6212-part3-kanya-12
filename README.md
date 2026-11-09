@@ -201,3 +201,28 @@ The Part 1 workflow (.github/workflows/part1-ci.yml) checks that the /docs folde
 
 ## Project Structure
 
+```text
+RaceDay/
+├── RaceDay.sln
+├── docs/                         # Part 1 planning documents
+├── RaceDay.Api/                  # ASP.NET Core Web API
+│   ├── Controllers/              # Auth, Profile, Events, Categories,
+│   │                             # Routes, Enrolments, Results
+│   ├── Data/                     # RaceDayDbContext
+│   ├── Filters/                  # RequireRoleAttribute (role enforcement)
+│   ├── Migrations/               # Entity Framework Core migrations
+│   ├── Models/                   # AppUser, Event, Category, RaceRoute,
+│   │                             # Enrolment, Result, Role
+│   ├── Properties/
+│   │   └── launchSettings.json
+│   ├── appsettings.json
+│   └── Program.cs
+├── RaceDay.Contracts/            # Shared request and response DTOs
+│   └── Dtos.cs
+├── RaceDay.Api.Tests/            # xUnit automated tests
+├── .github/
+│   └── workflows/
+│       ├── part1-ci.yml
+│       └── part2-ci.yml
+└── README.md
+```
