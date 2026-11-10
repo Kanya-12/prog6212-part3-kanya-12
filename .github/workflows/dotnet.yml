@@ -1,4 +1,4 @@
-```yaml
+
 name: RaceDay Part 3 Build Check
 
 on:
@@ -42,4 +42,4 @@ jobs:
 
       - name: Build RaceDay solution
         run: dotnet build RaceDay.sln --configuration Release --no-restore
-```
+
