@@ -698,7 +698,7 @@ Docker image creation and container execution.
 
 The GitHub Actions CI/CD workflow.
 
-Video presentation link: [.]
+Video presentation link: [https://youtu.be/7FBp7d5pSEU.]
 
 Project: RaceDay Event Management System
 Module: PROG6212 – Programming 2B
