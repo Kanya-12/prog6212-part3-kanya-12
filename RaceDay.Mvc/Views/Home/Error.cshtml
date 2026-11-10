@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Something went wrong";
+}
+
+<div class="text-center py-5">
+    <h1 class="rd-title">Something went wrong</h1>
+    <p class="lead">We could not complete that request. Please try again.</p>
+    <a class="btn rd-btn-primary" asp-controller="Home" asp-action="Index">Back to home</a>
+    @if (ViewBag.RequestId is string requestId)
+    {
+        <p class="text-muted small mt-4">Reference: @requestId</p>
+    }
+</div>

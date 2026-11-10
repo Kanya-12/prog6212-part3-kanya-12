@@ -1,0 +1,64 @@
+﻿@model ProfileVm
+@{
+    ViewData["Title"] = "My profile";
+    var initials = string.Concat(
+        Model.FullName.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Take(2)
+            .Select(part => char.ToUpperInvariant(part[0])));
+    if (string.IsNullOrEmpty(initials)) { initials = "?"; }
+}
+
+<div class="rd-page-header">
+    <h1 class="rd-title mb-0">My profile</h1>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card rd-card p-4 text-center">
+            <div class="rd-avatar mx-auto mb-3">@initials</div>
+            <h2 class="h4 mb-1">@Model.FullName</h2>
+            <p class="mb-2">
+                <span class="rd-status @(Model.Role == "Organiser" ? "status-confirmed" : "status-pending")">@Model.Role</span>
+            </p>
+            <p class="text-muted small mb-1">@Model.Email</p>
+            <p class="text-muted small mb-0">Member since @UiFormat.Date(Model.RegisteredDate)</p>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card rd-card p-4">
+            <h2 class="rd-section-title">Personal information</h2>
+
+            <form asp-action="Index" method="post" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email address</label>
+                    <input type="text" class="form-control" value="@Model.Email" disabled />
+                    <div class="form-text">Your email address is your login and cannot be changed here.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control" autocomplete="name" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="PhoneNumber" class="form-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" autocomplete="tel" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="DateOfBirth" class="form-label"></label>
+                        <input asp-for="DateOfBirth" class="form-control" />
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn rd-btn-primary">Save changes</button>
+            </form>
+        </div>
+    </div>
+</div>

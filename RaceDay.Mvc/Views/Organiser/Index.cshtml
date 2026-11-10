@@ -1,0 +1,97 @@
+﻿@model OrganiserDashboardVm
+@{
+    ViewData["Title"] = "Organiser dashboard";
+}
+
+<div class="rd-page-header">
+    <div>
+        <h1 class="rd-title mb-1">Organiser dashboard</h1>
+        <p class="text-muted mb-0">Welcome back, @Context.Session.GetString("DisplayName").</p>
+    </div>
+    <a class="btn rd-btn-primary" asp-action="CreateEvent">Create event</a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+        <div class="card rd-card rd-stat">
+            <span class="rd-stat-label">Events created</span>
+            <span class="rd-stat-value">@Model.TotalEvents</span>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card rd-card rd-stat">
+            <span class="rd-stat-label">Upcoming events</span>
+            <span class="rd-stat-value">@Model.UpcomingEvents</span>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card rd-card rd-stat">
+            <span class="rd-stat-label">Total enrolments</span>
+            <span class="rd-stat-value">@Model.TotalEnrolments</span>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card rd-card rd-stat">
+            <span class="rd-stat-label">Next event</span>
+            <span class="rd-stat-value">@(Model.NextEventDate.HasValue ? UiFormat.Date(Model.NextEventDate.Value) : "None")</span>
+        </div>
+    </div>
+</div>
+
+<div class="card rd-card">
+    <div class="card-body">
+        <h2 class="rd-section-title">Your events</h2>
+
+        @if (!Model.Events.Any())
+        {
+            <p class="text-muted mb-0">You have not created any events yet. <a asp-action="CreateEvent">Create your first event</a>.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table rd-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Enrolments</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Events)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@item.Event.EventName</strong>
+                                    <div class="small text-muted">@item.Event.EventType &middot; @UiFormat.Distance(item.Event.DistanceKm)</div>
+                                </td>
+                                <td>@UiFormat.Date(item.Event.EventDate)</td>
+                                <td>@item.Event.Location</td>
+                                <td>@item.TotalEnrolments total &middot; @item.ConfirmedEnrolments confirmed</td>
+                                <td>
+                                    @if (item.IsUpcoming)
+                                    {
+                                        <span class="rd-status status-upcoming">Upcoming</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="rd-status status-past">Past</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="rd-actions">
+                                        <a class="btn btn-outline-dark btn-sm" asp-action="Enrolments" asp-route-id="@item.Event.EventId">Enrolments</a>
+                                        <a class="btn btn-outline-dark btn-sm" asp-action="Results" asp-route-id="@item.Event.EventId">Results</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    var userId = Context.Session.GetInt32("UserId");
+    var role = Context.Session.GetString("Role");
+}
+
+<section class="rd-hero">
+    <div class="rd-hero-inner">
+        <p class="rd-eyebrow">South Africa's road events platform</p>
+        <h1>Find your next start line.</h1>
+        <p class="lead">Browse running, walking and cycling events, enter in a few clicks, and keep every finish on record.</p>
+        <div class="d-flex flex-wrap gap-2 mt-4">
+            @if (userId == null)
+            {
+                <a class="btn rd-btn-primary btn-lg" asp-controller="Auth" asp-action="Register">Create an account</a>
+                <a class="btn rd-btn-outline btn-lg" asp-controller="Auth" asp-action="Login">Log in</a>
+            }
+            else if (role == "Organiser")
+            {
+                <a class="btn rd-btn-primary btn-lg" asp-controller="Organiser" asp-action="Index">Go to my dashboard</a>
+            }
+            else
+            {
+                <a class="btn rd-btn-primary btn-lg" asp-controller="Participant" asp-action="Index">Browse events</a>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="row g-4 mt-2">
+    <div class="col-md-6">
+        <div class="card rd-card h-100 p-4">
+            <h2>For participants</h2>
+            <p class="mb-0">See what is coming up, pick a category that suits you, enter instantly, and track your race history and finish times in one place.</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card rd-card h-100 p-4">
+            <h2>For organisers</h2>
+            <p class="mb-0">Create events with banners, set up age and distance categories, see who has entered, and publish results when the race is done.</p>
+        </div>
+    </div>
+</section>

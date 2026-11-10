@@ -1,0 +1,131 @@
+﻿@model EventDetailsVm
+@{
+    var ev = Model.Event;
+    ViewData["Title"] = ev.EventName;
+}
+
+<p class="mb-2"><a asp-action="Index">&larr; All events</a></p>
+
+<div class="rd-banner-lg mb-4">
+    <partial name="_EventBanner" model="Model.Event" />
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card rd-card p-4 mb-4">
+            <h1 class="rd-title mb-2">@ev.EventName</h1>
+            <div class="rd-meta mb-3">
+                <span><strong>Date:</strong> @UiFormat.Date(ev.EventDate)</span>
+                <span><strong>Location:</strong> @ev.Location</span>
+                <span><strong>Type:</strong> @ev.EventType</span>
+                <span><strong>Distance:</strong> @UiFormat.Distance(ev.DistanceKm)</span>
+                <span><strong>Organiser:</strong> @ev.OrganiserName</span>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(ev.Description))
+            {
+                <p class="mb-0">@ev.Description</p>
+            }
+        </div>
+
+        <div class="card rd-card p-4 mb-4">
+            <h2 class="rd-section-title">Categories</h2>
+            @if (!Model.Categories.Any())
+            {
+                <p class="text-muted mb-0">The organiser has not added any categories yet.</p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table rd-table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Distance</th>
+                                <th>Ages</th>
+                                <th>Entry fee</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var c in Model.Categories)
+                            {
+                                <tr>
+                                    <td><strong>@c.CategoryName</strong></td>
+                                    <td>@UiFormat.Distance(c.DistanceKm)</td>
+                                    <td>@UiFormat.AgeRange(c.MinAge, c.MaxAge)</td>
+                                    <td>@UiFormat.Money(c.EntryFee)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
+        @if (Model.Routes.Any())
+        {
+            <div class="card rd-card p-4 mb-4">
+                <h2 class="rd-section-title">Route</h2>
+                @foreach (var r in Model.Routes)
+                {
+                    <div class="mb-3">
+                        <strong>@r.RouteName</strong>
+                        <div class="rd-meta">
+                            <span>@UiFormat.Distance(r.DistanceKm)</span>
+                            <span>Start: @r.StartPoint</span>
+                            <span>Finish: @r.EndPoint</span>
+                            @if (r.ElevationGainM.HasValue)
+                            {
+                                <span>Climb: @r.ElevationGainM m</span>
+                            }
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(r.MapUrl) && r.MapUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="@r.MapUrl" target="_blank" rel="noopener noreferrer">View route map</a>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card rd-card p-4">
+            <h2 class="rd-section-title">Enter this event</h2>
+
+            @if (Model.IsPast)
+            {
+                <p class="text-muted mb-0">This event has already taken place, so entries are closed.</p>
+            }
+            else if (Model.MyEnrolment is not null)
+            {
+                <p class="mb-2">You are entered in <strong>@Model.MyEnrolment.CategoryName</strong>.</p>
+                <p class="mb-3">
+                    <span class="rd-status @UiFormat.StatusClass(Model.MyEnrolment.Status)">@Model.MyEnrolment.Status</span>
+                    <span class="rd-status @UiFormat.StatusClass(Model.MyEnrolment.PaymentStatus)">@Model.MyEnrolment.PaymentStatus</span>
+                </p>
+                <a class="btn btn-outline-dark w-100" asp-action="MyEvents">Go to my events</a>
+            }
+            else if (!Model.Categories.Any())
+            {
+                <p class="text-muted mb-0">Entries open once the organiser adds categories.</p>
+            }
+            else
+            {
+                <form asp-action="Enrol" asp-route-id="@ev.EventId" method="post">
+                    <p class="text-muted small">Choose the category you want to enter.</p>
+                    @foreach (var c in Model.Categories)
+                    {
+                        <div class="mb-2">
+                            <input type="radio" class="btn-check" name="categoryId" id="@("cat-" + c.CategoryId)" value="@c.CategoryId" autocomplete="off" />
+                            <label class="rd-category-option" for="@("cat-" + c.CategoryId)">
+                                <strong>@c.CategoryName</strong>
+                                <span class="d-block small text-muted">@UiFormat.Distance(c.DistanceKm) &middot; @UiFormat.AgeRange(c.MinAge, c.MaxAge) &middot; @UiFormat.Money(c.EntryFee)</span>
+                            </label>
+                        </div>
+                    }
+                    <button type="submit" class="btn rd-btn-primary w-100 mt-2">Enter event</button>
+                </form>
+            }
+        </div>
+    </div>
+</div>

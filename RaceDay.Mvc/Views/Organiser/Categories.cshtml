@@ -1,0 +1,70 @@
+﻿@model CategoriesPageVm
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="rd-page-header">
+    <div>
+        <h1 class="rd-title mb-1">Categories</h1>
+        <p class="text-muted mb-0">@Model.Event.EventName &middot; @UiFormat.Date(Model.Event.EventDate) &middot; @Model.Event.Location</p>
+    </div>
+    <a class="btn btn-outline-dark" asp-action="Events">Back to my events</a>
+</div>
+
+<div class="card rd-card mb-4">
+    <div class="card-body">
+        <h2 class="rd-section-title">Current categories</h2>
+
+        @if (!Model.Categories.Any())
+        {
+            <p class="text-muted mb-0">This event has no categories yet. Add one below so participants can enter.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table rd-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Distance</th>
+                            <th>Ages</th>
+                            <th>Entry fee</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in Model.Categories)
+                        {
+                            <tr>
+                                <td><strong>@c.CategoryName</strong></td>
+                                <td>@UiFormat.Distance(c.DistanceKm)</td>
+                                <td>@UiFormat.AgeRange(c.MinAge, c.MaxAge)</td>
+                                <td>@UiFormat.Money(c.EntryFee)</td>
+                                <td>
+                                    <div class="rd-actions">
+                                        <a class="btn btn-outline-dark btn-sm" asp-action="EditCategory" asp-route-id="@c.CategoryId" asp-route-eventId="@Model.Event.EventId">Edit</a>
+                                        <form asp-action="DeleteCategory" asp-route-id="@c.CategoryId" asp-route-eventId="@Model.Event.EventId" method="post" class="d-inline"
+                                              onsubmit="return confirm('Delete this category?');">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card rd-card">
+    <div class="card-body p-4">
+        <h2 class="rd-section-title">Add a category</h2>
+        <form asp-action="AddCategory" method="post" novalidate>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <partial name="_CategoryFields" model="Model.Form" />
+            <button type="submit" class="btn rd-btn-primary">Add category</button>
+        </form>
+    </div>
+</div>

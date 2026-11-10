@@ -1,0 +1,271 @@
+﻿/* ===================================================================
+   RaceDay theme: a sporting, energetic look. Navy + orange + lime.
+   Every page uses these same colours, fonts and spacing.
+   =================================================================== */
+:root {
+  --rd-navy: #0b1f3a;
+  --rd-navy-2: #12335f;
+  --rd-orange: #ff5a1f;
+  --rd-orange-dark: #e04a12;
+  --rd-lime: #c6f432;
+  --rd-bg: #f4f6fa;
+  --rd-text: #1f2937;
+  --rd-muted: #6b7280;
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  background: var(--rd-bg);
+  color: var(--rd-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, .rd-title {
+  font-family: 'Barlow Condensed', 'Arial Narrow', Impact, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+  color: var(--rd-navy);
+}
+
+a { color: var(--rd-orange-dark); }
+a:hover { color: var(--rd-orange); }
+
+/* ---- Navigation ---- */
+.rd-navbar {
+  background: var(--rd-navy);
+  border-bottom: 4px solid var(--rd-orange);
+}
+.rd-brand {
+  font-family: 'Barlow Condensed', 'Arial Narrow', Impact, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+.rd-brand span { color: var(--rd-orange); }
+.rd-navbar .nav-link { color: rgba(255, 255, 255, 0.85); font-weight: 500; }
+.rd-navbar .nav-link:hover { color: #fff; }
+.rd-role-badge {
+  background: var(--rd-orange);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-left: 0.4rem;
+}
+
+/* ---- Layout ---- */
+.rd-main { padding-top: 2rem; padding-bottom: 3rem; flex: 1; }
+.rd-footer {
+  background: var(--rd-navy);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 1.2rem 0;
+  font-size: 0.9rem;
+}
+
+/* ---- Buttons ---- */
+.rd-btn-primary {
+  background: var(--rd-orange);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 0.55rem 1.3rem;
+}
+.rd-btn-primary:hover, .rd-btn-primary:focus { background: var(--rd-orange-dark); color: #fff; }
+.rd-btn-outline {
+  border: 2px solid #fff;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 0.5rem 1.3rem;
+}
+.rd-btn-outline:hover { background: #fff; color: var(--rd-navy); }
+
+/* ---- Cards ---- */
+.rd-card {
+  background: #fff;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(11, 31, 58, 0.08);
+}
+
+/* ---- Hero ---- */
+.rd-hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  border-radius: 18px;
+  padding: 4rem 2.5rem;
+  background: linear-gradient(120deg, var(--rd-navy) 0%, var(--rd-navy-2) 60%, #7a2f12 130%);
+}
+.rd-hero::after {
+  content: "";
+  position: absolute;
+  right: -90px;
+  top: -50px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: var(--rd-orange);
+  opacity: 0.2;
+}
+.rd-hero-inner { position: relative; z-index: 1; max-width: 640px; }
+.rd-hero h1 { color: #fff; font-size: clamp(2.6rem, 6vw, 4.5rem); line-height: 1; }
+.rd-eyebrow {
+  color: var(--rd-lime);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+}
+
+/* ---- Forms ---- */
+.form-control:focus, .form-select:focus {
+  border-color: var(--rd-orange);
+  box-shadow: 0 0 0 0.2rem rgba(255, 90, 31, 0.2);
+}
+.validation-summary-valid { display: none; }
+
+/* ---- Colour-coded statuses (reused on every page) ---- */
+.rd-status {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.status-confirmed, .status-paid, .status-finished { background: #dcfce7; color: #166534; }
+.status-pending, .status-unpaid { background: #fef3c7; color: #92400e; }
+.status-cancelled, .status-dnf { background: #fee2e2; color: #991b1b; }
+.status-refunded, .status-dns { background: #e5e7eb; color: #374151; }
+
+/* ---- Page header, dashboard and tables ---- */
+.rd-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.rd-section-title { font-size: 1.4rem; margin-bottom: 1rem; }
+
+.rd-stat { padding: 1.1rem 1.4rem; border-left: 6px solid var(--rd-orange); }
+.rd-stat-label {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--rd-muted);
+  font-weight: 600;
+}
+.rd-stat-value {
+  display: block;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Impact, sans-serif;
+  font-size: 2.3rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--rd-navy);
+}
+
+.rd-table thead th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--rd-muted);
+  border-bottom: 2px solid var(--rd-navy);
+  white-space: nowrap;
+}
+.rd-table td { vertical-align: middle; }
+.rd-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: flex-end; }
+.rd-result-card { border-left: 6px solid var(--rd-navy); }
+
+.status-upcoming { background: #dcfce7; color: #166534; }
+.status-past { background: #e5e7eb; color: #374151; }
+
+/* ---- Event cards, banners and filters (Participant) ---- */
+.rd-event-card {
+  overflow: hidden;
+  height: 100%;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.rd-event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(11, 31, 58, 0.14);
+}
+.rd-event-banner {
+  position: relative;
+  height: 150px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.9rem 1rem;
+  color: #fff;
+  overflow: hidden;
+}
+.rd-event-banner img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.rd-event-banner-label {
+  position: relative;
+  z-index: 1;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Impact, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+.banner-running { background: linear-gradient(135deg, #ff5a1f, #b93a08); }
+.banner-cycling { background: linear-gradient(135deg, #12335f, #0b1f3a); }
+.banner-walking { background: linear-gradient(135deg, #1f8f5f, #0f5c3b); }
+.rd-banner-lg .rd-event-banner { height: 260px; border-radius: 14px; }
+
+.rd-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.4rem;
+  color: var(--rd-muted);
+  font-size: 0.92rem;
+}
+.rd-filter { border-top: 4px solid var(--rd-orange); }
+
+.rd-category-option {
+  display: block;
+  height: 100%;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  background: #fff;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.rd-category-option:hover { border-color: var(--rd-orange); }
+.btn-check:checked + .rd-category-option { border-color: var(--rd-orange); background: #fff4ee; }
+
+.rd-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--rd-navy);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Impact, sans-serif;
+  font-size: 2.3rem;
+  font-weight: 700;
+  object-fit: cover;
+}

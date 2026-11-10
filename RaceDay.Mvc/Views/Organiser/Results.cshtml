@@ -1,0 +1,85 @@
+﻿@model ResultsPageVm
+@{
+    ViewData["Title"] = "Results";
+    var published = Model.Rows.Count(r => r.Result is not null);
+}
+
+<div class="rd-page-header">
+    <div>
+        <h1 class="rd-title mb-1">Results entry</h1>
+        <p class="text-muted mb-0">@Model.Event.EventName &middot; @UiFormat.Date(Model.Event.EventDate) &middot; @Model.Event.Location</p>
+    </div>
+    <a class="btn btn-outline-dark" asp-action="Events">Back to my events</a>
+</div>
+
+<div class="alert alert-secondary">
+    Saving a result publishes it straight away: the participant sees it under <strong>My Results</strong>.
+    Enter the finish time as <strong>hh:mm:ss</strong>. For DNF or DNS entries, no time or position is needed.
+    <span class="d-block mt-1">@published of @Model.Rows.Count results published.</span>
+</div>
+
+@if (!Model.Rows.Any())
+{
+    <div class="card rd-card">
+        <div class="card-body">
+            <p class="text-muted mb-0">There are no enrolled participants to record results for yet.</p>
+        </div>
+    </div>
+}
+else
+{
+    foreach (var row in Model.Rows)
+    {
+        var en = row.Enrolment;
+        var res = row.Result;
+
+        <div class="card rd-card rd-result-card mb-3">
+            <div class="card-body">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                    <div>
+                        <strong>@en.ParticipantName</strong>
+                        <div class="small text-muted">@en.CategoryName</div>
+                    </div>
+                    <div>
+                        <span class="rd-status @UiFormat.StatusClass(en.Status)">@en.Status</span>
+                        @if (res is not null)
+                        {
+                            <span class="rd-status status-finished ms-1">Published</span>
+                        }
+                    </div>
+                </div>
+
+                <form asp-action="SaveResult" method="post" class="row g-2 align-items-end">
+                    <input type="hidden" name="EventId" value="@Model.Event.EventId" />
+                    <input type="hidden" name="EnrolmentId" value="@en.EnrolmentId" />
+                    <input type="hidden" name="ResultId" value="@res?.ResultId" />
+
+                    <div class="col-md-3">
+                        <label class="form-label small mb-1">Finish time (hh:mm:ss)</label>
+                        <input type="text" name="FinishTime" class="form-control" placeholder="01:45:30"
+                               value="@(res is null ? "" : UiFormat.TimeInput(res.FinishTime))" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label small mb-1">Finishing position</label>
+                        <input type="number" name="FinishPosition" class="form-control" min="1" value="@res?.FinishPosition" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label small mb-1">Category position</label>
+                        <input type="number" name="CategoryPosition" class="form-control" min="1" value="@res?.CategoryPosition" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small mb-1">Result</label>
+                        <select name="Status" class="form-select">
+                            <option value="Finished" selected="@(res is null || res.Status == "Finished")">Finished</option>
+                            <option value="DNF" selected="@(res is not null && res.Status == "DNF")">Did not finish (DNF)</option>
+                            <option value="DNS" selected="@(res is not null && res.Status == "DNS")">Did not start (DNS)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn rd-btn-primary w-100">Save and publish</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,19 @@
+﻿@model EventFormVm
+@{
+    ViewData["Title"] = "Edit event";
+}
+
+<div class="rd-page-header">
+    <h1 class="rd-title mb-0">Edit event</h1>
+    <a class="btn btn-outline-dark" asp-action="Events">Back to my events</a>
+</div>
+
+<div class="card rd-card">
+    <div class="card-body p-4">
+        <form asp-action="EditEvent" asp-route-id="@Model.EventId" method="post" novalidate>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <partial name="_EventFields" model="Model" />
+            <button type="submit" class="btn rd-btn-primary">Save changes</button>
+        </form>
+    </div>
+</div>

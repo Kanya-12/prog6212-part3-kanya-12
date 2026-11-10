@@ -1,0 +1,63 @@
+﻿@model List<MyEventRowVm>
+@{
+    ViewData["Title"] = "My events";
+}
+
+<div class="rd-page-header">
+    <h1 class="rd-title mb-0">My events</h1>
+    <a class="btn rd-btn-primary" asp-action="Index">Browse events</a>
+</div>
+
+<div class="card rd-card">
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <p class="text-muted mb-0">You have not entered any events yet. <a asp-action="Index">Browse upcoming events</a>.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table rd-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Payment</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var row in Model)
+                        {
+                            var en = row.Enrolment;
+                            <tr>
+                                <td><a asp-action="Details" asp-route-id="@en.EventId"><strong>@en.EventName</strong></a></td>
+                                <td>@(row.EventDate.HasValue ? UiFormat.Date(row.EventDate.Value) : "-")</td>
+                                <td>@row.Location</td>
+                                <td>@en.CategoryName</td>
+                                <td><span class="rd-status @UiFormat.StatusClass(en.Status)">@en.Status</span></td>
+                                <td><span class="rd-status @UiFormat.StatusClass(en.PaymentStatus)">@en.PaymentStatus</span></td>
+                                <td class="text-end">
+                                    @if (row.IsUpcoming)
+                                    {
+                                        <form asp-action="CancelEnrolment" asp-route-id="@en.EnrolmentId" method="post" class="d-inline"
+                                              onsubmit="return confirm('Withdraw from this event?');">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Withdraw</button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <span class="rd-status status-past">Past</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@model List<EventDto>
+@{
+    ViewData["Title"] = "My events";
+    var today = DateOnly.FromDateTime(DateTime.Now);
+}
+
+<div class="rd-page-header">
+    <h1 class="rd-title mb-0">My events</h1>
+    <a class="btn rd-btn-primary" asp-action="CreateEvent">Create event</a>
+</div>
+
+<div class="card rd-card">
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <p class="text-muted mb-0">You have not created any events yet. <a asp-action="CreateEvent">Create your first event</a>.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table rd-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ev in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@ev.EventName</strong>
+                                    <div class="small text-muted">@ev.EventType &middot; @UiFormat.Distance(ev.DistanceKm)</div>
+                                </td>
+                                <td>@UiFormat.Date(ev.EventDate)</td>
+                                <td>@ev.Location</td>
+                                <td>
+                                    @if (ev.EventDate >= today)
+                                    {
+                                        <span class="rd-status status-upcoming">Upcoming</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="rd-status status-past">Past</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="rd-actions">
+                                        <a class="btn btn-outline-dark btn-sm" asp-action="EditEvent" asp-route-id="@ev.EventId">Edit</a>
+                                        <a class="btn btn-outline-dark btn-sm" asp-action="Categories" asp-route-id="@ev.EventId">Categories</a>
+                                        <a class="btn btn-outline-dark btn-sm" asp-action="Enrolments" asp-route-id="@ev.EventId">Enrolments</a>
+                                        <a class="btn btn-outline-dark btn-sm" asp-action="Results" asp-route-id="@ev.EventId">Results</a>
+                                        <form asp-action="DeleteEvent" asp-route-id="@ev.EventId" method="post" class="d-inline"
+                                              onsubmit="return confirm('Delete this event? This cannot be undone.');">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

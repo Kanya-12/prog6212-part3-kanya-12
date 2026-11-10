@@ -1,0 +1,57 @@
+﻿@model List<MyResultRowVm>
+@{
+    ViewData["Title"] = "My results";
+}
+
+<div class="rd-page-header">
+    <div>
+        <h1 class="rd-title mb-1">My results</h1>
+        <p class="text-muted mb-0">Your race history. Results appear here once the organiser publishes them.</p>
+    </div>
+</div>
+
+<div class="card rd-card">
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <p class="text-muted mb-0">You have no published results yet. After an event finishes, your time and position will show here.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table rd-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Finish time</th>
+                            <th>Position</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var row in Model)
+                        {
+                            var r = row.Result;
+                            <tr>
+                                <td><strong>@r.EventName</strong></td>
+                                <td>@(row.EventDate.HasValue ? UiFormat.Date(row.EventDate.Value) : "-")</td>
+                                <td>@row.CategoryName</td>
+                                <td>@UiFormat.Time(r.FinishTime)</td>
+                                <td>
+                                    @row.PositionText
+                                    @if (r.CategoryPosition.HasValue && r.Status == "Finished")
+                                    {
+                                        <div class="small text-muted">@UiFormat.Ordinal(r.CategoryPosition.Value) in category</div>
+                                    }
+                                </td>
+                                <td><span class="rd-status @UiFormat.StatusClass(r.Status)">@r.Status</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

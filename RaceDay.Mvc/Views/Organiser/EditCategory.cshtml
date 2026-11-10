@@ -1,0 +1,22 @@
+﻿@model CategoryFormVm
+@{
+    ViewData["Title"] = "Edit category";
+}
+
+<div class="rd-page-header">
+    <div>
+        <h1 class="rd-title mb-1">Edit category</h1>
+        <p class="text-muted mb-0">@ViewBag.EventName</p>
+    </div>
+    <a class="btn btn-outline-dark" asp-action="Categories" asp-route-id="@Model.EventId">Back to categories</a>
+</div>
+
+<div class="card rd-card">
+    <div class="card-body p-4">
+        <form asp-action="EditCategory" method="post" novalidate>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <partial name="_CategoryFields" model="Model" />
+            <button type="submit" class="btn rd-btn-primary">Save changes</button>
+        </form>
+    </div>
+</div>
