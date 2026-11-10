@@ -1,0 +1,45 @@
+```yaml
+name: RaceDay Part 3 Build Check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate-part3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check README exists
+        run: test -f README.md
+
+      - name: Check Part 3 project folder
+        run: test -d RaceDay.Mvc
+
+      - name: Check MVC project file
+        run: test -f RaceDay.Mvc/RaceDay.Mvc.csproj
+
+      - name: Check API project folder
+        run: test -d RaceDay.Api
+
+      - name: Check API project file
+        run: test -f RaceDay.Api/RaceDay.Api.csproj
+
+      - name: Check solution file
+        run: test -f RaceDay.sln
+
+      - name: Install .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore RaceDay.sln
+
+      - name: Build RaceDay solution
+        run: dotnet build RaceDay.sln --configuration Release --no-restore
+```
