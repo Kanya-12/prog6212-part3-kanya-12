@@ -670,7 +670,8 @@ GitHub Actions Screenshot
 
 Part 3 successful workflow:
 
-[.]
+[.<img width="829" height="66" alt="image" src="https://github.com/user-attachments/assets/b8ee08b0-a0e6-44eb-a0ab-9da914e8d505" />
+]
 
 Video Presentation
 
